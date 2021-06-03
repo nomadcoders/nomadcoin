@@ -1,26 +1,15 @@
+{{define "home"}}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://unpkg.com/mvp.css">
-    <title>노마드 코인</title>
-  </head>
+  {{template "head"}}
   <body>
-    <header>
-      <h1>{{.PageTitle}}</h1>
-    </header>
+    {{template "header"}}
     <main>
     {{range .Blocks}}
-      <section>
-        <ul>
-          <li>{{.Data}}</li>
-          <li>{{.Hash}}</li>
-          <li>{{.PrevHash}}</li>
-        </ul>
-      </section>
+      {{template "block"}}
     {{end}}
     </main>
+  {{template "footer"}}
   </body>
 </html>
+{{end}}
