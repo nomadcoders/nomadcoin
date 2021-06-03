@@ -1,0 +1,18 @@
+{{define "add"}}
+<!DOCTYPE html>
+<html lang="en">
+  {{template "head" "Add"}}
+  <body>
+    {{template "header" "Add"}}
+    <main>
+      <aside>
+          <form method="POST">
+              <input type="text" placeholder="Data for your block" required name="blockData" />
+              <button>Add Block</button>
+          </form>
+      </aside>
+    </main>
+  {{template "footer"}}
+  </body>
+</html>
+{{end}}
