@@ -9,6 +9,8 @@ import (
 	"github.com/nomadcoders/nomadcoin/utils"
 )
 
+const difficulty int = 2
+
 type Block struct {
 	Data       string `json:"data"`
 	Hash       string `json:"hash"`
