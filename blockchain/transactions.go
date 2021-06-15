@@ -40,9 +40,19 @@ type TxOut struct {
 }
 
 type UTxOut struct {
-	TxID   string
-	Index  int
-	Amount int
+	TxID   string `json:"txId"`
+	Index  int    `json:"index"`
+	Amount int    `json:"amount"`
+}
+
+func isOnMempool(uTxOut *UTxOut) bool {
+	exists := false
+	for _, tx := range Mempool.Txs {
+		for _, input := range tx.TxIns {
+			exists = input.TxID == uTxOut.TxID && input.Index == uTxOut.Index
+		}
+	}
+	return exists
 }
 
 func makeCoinbaseTx(address string) *Tx {
