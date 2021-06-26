@@ -28,7 +28,7 @@ func (b *blockchain) restore(data []byte) {
 }
 
 func (b *blockchain) AddBlock() {
-	block := createBlock(b.NewestHash, b.Height+1)
+	block := createBlock(b.NewestHash, b.Height+1, getDifficulty(b))
 	b.NewestHash = block.Hash
 	b.Height = block.Height
 	b.CurrentDifficulty = block.Difficulty
@@ -68,7 +68,7 @@ func recalculateDifficulty(b *blockchain) int {
 	return b.CurrentDifficulty
 }
 
-func difficulty(b *blockchain) int {
+func getDifficulty(b *blockchain) int {
 	if b.Height == 0 {
 		return defaultDifficulty
 	} else if b.Height%difficultyInterval == 0 {
