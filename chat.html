@@ -7,9 +7,24 @@
     <title>Chat</title>
   </head>
   <body>
+    <form>
+      <input placeholder="talk" required />
+    </form>
+    <span></span>
     <script>
+      const form = document.querySelector("form");
+      const input = document.querySelector("input");
+      const span = document.querySelector("span");
       const socket = new WebSocket("ws://localhost:4000/ws");
       socket.addEventListener("close", () => console.log("closed"));
+      socket.addEventListener("message", (e) => {
+        span.innerHTML = span.innerHTML + `\n${e.data}`;
+      });
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        socket.send(input.value);
+        input.value = "";
+      });
     </script>
   </body>
 </html>
