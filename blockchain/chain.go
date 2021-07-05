@@ -148,3 +148,14 @@ func Blockchain() *blockchain {
 	})
 	return b
 }
+
+func (b *blockchain) Replace(newBlocks []*Block) {
+	b.CurrentDifficulty = newBlocks[0].Difficulty
+	b.Height = len(newBlocks)
+	b.NewestHash = newBlocks[0].Hash
+	persistBlockhain(b)
+	db.EmptyBlocks()
+	for _, block := range newBlocks {
+		persistBlock(block)
+	}
+}
