@@ -2,6 +2,7 @@ package p2p
 
 import (
 	"encoding/json"
+	"fmt"
 
 	"github.com/nomadcoders/nomadcoin/blockchain"
 	"github.com/nomadcoders/nomadcoin/utils"
@@ -20,20 +21,12 @@ type Message struct {
 	Payload []byte
 }
 
-func (m *Message) addPayload(p interface{}) {
-	b, err := json.Marshal(p)
-	utils.HandleErr(err)
-	m.Payload = b
-}
-
 func makeMessage(kind MessageKind, payload interface{}) []byte {
 	m := Message{
-		Kind: kind,
+		Kind:    kind,
+		Payload: utils.ToJSON(payload),
 	}
-	m.addPayload(payload)
-	mJson, err := json.Marshal(m)
-	utils.HandleErr(err)
-	return mJson
+	return utils.ToJSON(m)
 }
 
 func sendNewestBlock(p *peer) {
@@ -41,4 +34,13 @@ func sendNewestBlock(p *peer) {
 	utils.HandleErr(err)
 	m := makeMessage(MessageNewestBlock, b)
 	p.inbox <- m
+}
+
+func handleMsg(m *Message, p *peer) {
+	switch m.Kind {
+	case MessageNewestBlock:
+		var payload blockchain.Block
+		utils.HandleErr(json.Unmarshal(m.Payload, &payload))
+		fmt.Println(payload)
+	}
 }
