@@ -8,4 +8,5 @@ require (
 	github.com/gorilla/websocket v1.4.2 // indirect
 	go.etcd.io/bbolt v1.3.6 // indirect
 	golang.org/x/sys v0.0.0-20210603125802-9665404d3644 // indirect
+	golang.org/x/tools v0.1.4 // indirect
 )
