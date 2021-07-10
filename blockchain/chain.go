@@ -49,7 +49,7 @@ func (b *blockchain) AddBlock() *Block {
 }
 
 func persistBlockhain(b *blockchain) {
-	dbStorage.SaveChain((utils.ToBytes(b)))
+	dbStorage.SaveChain(utils.ToBytes(b))
 }
 
 func Blocks(b *blockchain) []*Block {
